@@ -191,7 +191,7 @@ print("\nQ-4 Solution:\n-------------\n")
 
 #dtree_auc_plot(Xt, Xva, Yt, Yva)
 
-run_dt = 1
+run_dt = 0
 if run_dt:
     K = range(1, 10, 1)  # Or something else
     A = range(0, 5, 1)  # Or something else
@@ -225,3 +225,48 @@ if run_dt:
     ax.set_xticklabels([''] + A)
     ax.set_yticklabels([''] + K)
     plt.show()
+# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+print("\nQ-5 Solution:\n-------------\n")
+
+run_nnet = 1
+if run_nnet:
+    K = range(1, 10, 1)  # Or something else
+    A = range(0, 5, 1)  # Or something else
+    tr_auc = np.zeros((len(K), len(A)))
+    va_auc = np.zeros((len(K), len(A)))
+
+    for i, k in enumerate(K):
+        for j, a in enumerate(A):
+            print(i, j)
+            a = [14]    #no of features
+            b = [i] * j
+            c = [2]     #either rain = 0 or 1
+            abc = np.concatenate([a, b, c])
+
+            nn = ml.nnet.nnetClassify()
+            nn.init_weights(abc, 'random', XtS, Yt)  # as many layers nodes you want
+            nn.train(XtS, Yt, stopTol=1e-8, stepsize=.25, stopIter=300)
+
+            tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
+            va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
+
+    A = list(A)
+    K = list(K)
+
+    # Now plot it
+    f, ax = plt.subplots(1, 1, figsize=(8, 5))
+    cax = ax.matshow(tr_auc, interpolation='nearest')
+    f.colorbar(cax)
+    ax.set_xticklabels([''] + A)
+    ax.set_yticklabels([''] + K)
+    plt.show()
+
+    f, ax = plt.subplots(1, 1, figsize=(8, 5))
+    cax = ax.matshow(va_auc, interpolation='nearest')
+    f.colorbar(cax)
+    ax.set_xticklabels([''] + A)
+    ax.set_yticklabels([''] + K)
+    plt.show()
+# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
+
