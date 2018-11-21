@@ -1,7 +1,7 @@
 # CS273A - HOMEWORK 4
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 import numpy as np
-import hw4_mltools as ml
+import mltools as ml
 import matplotlib.pyplot as plt
 import texttable as tt
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
@@ -70,7 +70,7 @@ print("\nQ-2 Solution:\n-------------\n")
 print("AUC value is the area under ROC curve")
 print("Initially, reg was swept from -10 to +10. \nSince it is changing only between -2 to +5, that area has small step size")
 
-# linear_auc_plot(XtS,XvS,Yt,Yva)
+linear_auc_plot(XtS,XvS,Yt,Yva)
 
 #XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
 #XtS_d2,params = ml.rescale(XtS_d2)
@@ -86,7 +86,7 @@ print("Initially, reg was swept from -10 to +10. \nSince it is changing only bet
 def nn_auc_plot(xt,xv,yt,yv):
     list_tr = []
     list_va = []
-    r = [0, 1, 2, 3] #, 4, 5, 10, 20, 30, 40, 50, 100]
+    r = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100]
 
     for i in r:
         learner = ml.knn.knnClassify()
@@ -104,7 +104,7 @@ def nn_auc_plot(xt,xv,yt,yv):
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 print("\nQ-3 Solution:\n-------------\n")
 
-nn_auc_plot(XtS,XvS,Yt,Yva)
+#nn_auc_plot(XtS,XvS,Yt,Yva)
 
 
 
