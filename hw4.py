@@ -203,7 +203,7 @@ if run_dt:
             print(i, j)
 
             learner = ml.dtree.treeClassify()
-            learner.train(Xt, Yt, maxDepth=5, minParent=i, minLeaf=j)
+            learner.train(Xt, Yt, maxDepth=5, minParent=k, minLeaf=a)
 
             tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
             va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
@@ -230,25 +230,30 @@ print("\nQ-5 Solution:\n-------------\n")
 
 run_nnet = 1
 if run_nnet:
-    K = range(1, 10, 1)  # Or something else
-    A = range(0, 5, 1)  # Or something else
+    K = range(1, 8)  # Or something else
+    A = range(1, 4)  # Or something else
     tr_auc = np.zeros((len(K), len(A)))
     va_auc = np.zeros((len(K), len(A)))
 
     for i, k in enumerate(K):
         for j, a in enumerate(A):
             print(i, j)
-            a = [14]    #no of features
+
+            abc_list = [14]    #no of features
             b = [i] * j
-            c = [2]     #either rain = 0 or 1
-            abc = np.concatenate([a, b, c])
+            c = 2     #either rain = 0 or 1
+
+            for i in b:
+                abc_list.append(i)
+            abc_list.append(c)
+            print(abc_list)
 
             nn = ml.nnet.nnetClassify()
-            nn.init_weights(abc, 'random', XtS, Yt)  # as many layers nodes you want
+            nn.init_weights(abc_list, 'random', XtS, Yt)  # as many layers nodes you want
             nn.train(XtS, Yt, stopTol=1e-8, stepsize=.25, stopIter=300)
 
-            tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
-            va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
+            tr_auc[i][j] = nn.auc(XtS, Yt)  # train AUC
+            va_auc[i][j] = nn.auc(XvS, Yva)  # train AUC
 
     A = list(A)
     K = list(K)
