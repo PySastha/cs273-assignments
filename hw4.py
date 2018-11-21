@@ -87,8 +87,7 @@ print("\nQ-3 Solution:\n-------------\n")
 
 list_tr = []
 list_va = []
-r = [0, 1]
-#r = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100]
+r = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100]
 for i in r:
     learner = ml.knn.knnClassify()
     learner.train(XtS, Yt, K=i, alpha=0.0)
