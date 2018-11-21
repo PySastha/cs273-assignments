@@ -105,7 +105,7 @@ def nn_auc_plot(xt,xv,yt,yv):
 print("\nQ-3 Solution:\n-------------\n")
 
 #nn_auc_plot(XtS,XvS,Yt,Yva)
-#nn_auc_plot(Xt,Xva,Yt,Yva)
+nn_auc_plot(Xt,Xva,Yt,Yva)
 
 
 
