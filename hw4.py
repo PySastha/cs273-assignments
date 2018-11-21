@@ -74,7 +74,7 @@ print("Initially, reg was swept from -10 to +10. \nSince it is changing only bet
 
 #XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
 #XtS_d2,params = ml.rescale(XtS_d2)
-#XvS_d2 = ml.transforms.fpoly(XvS,2,False) # Degree 2
+#XvS_d2 = ml.transforms.fpoly(Xva,2,False) # Degree 2
 #XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
 
 #print("\n", XtS_d2) # To have a idea about degree 2 poly
