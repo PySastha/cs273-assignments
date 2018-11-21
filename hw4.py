@@ -72,16 +72,16 @@ print("Initially, reg was swept from -10 to +10. \nSince it is changing only bet
 
 #linear_auc_plot(XtS,XvS,Yt,Yva)
 
-#XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
-#XtS_d2,params = ml.rescale(XtS_d2)
-#XvS_d2 = ml.transforms.fpoly(Xva,2,False) # Degree 2
-#XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
+XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
+XtS_d2,params = ml.rescale(XtS_d2)
+XvS_d2 = ml.transforms.fpoly(Xva,2,False) # Degree 2
+XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
 
-#print("\n", XtS_d2) # To have a idea about degree 2 poly
-#print(XtS_d2.shape)
-#print("It contains all combinations (2nd degree) --> 14 features, their squares and combinations of 2 features")
+print("\n", XtS_d2) # To have a idea about degree 2 poly
+print(XtS_d2.shape)
+print("It contains all combinations (2nd degree) --> 14 features, their squares and combinations of 2 features")
 
-#linear_auc_plot(XtS_d2,XvS_d2,Yt,Yva)
+linear_auc_plot(XtS_d2,XvS_d2,Yt,Yva)
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 def nn_auc_plot(xt,xv,yt,yv):
     list_tr = []
@@ -105,7 +105,7 @@ def nn_auc_plot(xt,xv,yt,yv):
 print("\nQ-3 Solution:\n-------------\n")
 
 #nn_auc_plot(XtS,XvS,Yt,Yva)
-nn_auc_plot(Xt,Xva,Yt,Yva)
+#nn_auc_plot(Xt,Xva,Yt,Yva)
 
 
 
