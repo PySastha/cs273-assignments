@@ -1,7 +1,7 @@
 # CS273A - HOMEWORK 4
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 import numpy as np
-import mltools as ml
+import hw4_mltools as ml
 import matplotlib.pyplot as plt
 import texttable as tt
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
@@ -31,11 +31,11 @@ def find_stat_tabular(inp):
     print(tab.draw())
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 # Loading data:
-X = np.genfromtxt('data/X_train.txt', delimiter=None)
-Y = np.genfromtxt('data/Y_train.txt', delimiter=None)
+X = np.genfromtxt('hw4_data/X_train.txt', delimiter=None)
+Y = np.genfromtxt('hw4_data/Y_train.txt', delimiter=None)
 X,Y = ml.shuffleData(X,Y)
 
-print("Q-1 Solution:\n-------------\n")
+print("\nQ-1 Solution:\n-------------\n")
 print("Statistics before Scaling")
 #find_stat_tabular(X)
 
@@ -66,22 +66,45 @@ def linear_auc_plot(xt,xv,yt,yv):
     plt.plot(r, list_va)
     plt.show()
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-print("Q-2 Solution:\n-------------\n")
+print("\nQ-2 Solution:\n-------------\n")
 print("AUC value is the area under ROC curve")
 print("Initially, reg was swept from -10 to +10. \nSince it is changing only between -2 to +5, that area has small step size")
 
 # linear_auc_plot(XtS,XvS,Yt,Yva)
 
-XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
-XtS_d2,params = ml.rescale(XtS_d2)
-XvS_d2 = ml.transforms.fpoly(XvS,2,False) # Degree 2
-XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
+#XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
+#XtS_d2,params = ml.rescale(XtS_d2)
+#XvS_d2 = ml.transforms.fpoly(XvS,2,False) # Degree 2
+#XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
 
-print("\n", XtS_d2) # To have a idea about degree 2 poly
-print(XtS_d2.shape)
+#print("\n", XtS_d2) # To have a idea about degree 2 poly
+#print(XtS_d2.shape)
+#print("It contains all combinations (2nd degree) --> 14 features, their squares and combinations of 2 features")
 
 #linear_auc_plot(XtS_d2,XvS_d2,Yt,Yva)
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-print("Q-3 Solution:\n-------------\n")
+print("\nQ-3 Solution:\n-------------\n")
 
+list_tr = []
+list_va = []
+r = [0, 1]
+#r = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100]
+for i in r:
+    learner = ml.knn.knnClassify()
+    learner.train(XtS, Yt, K=i, alpha=0.0)
+
+    temp1 = learner.auc(XtS, Yt) # train AUC
+    list_tr.append(temp1)
+    print(temp1)
+
+    temp2 = learner.auc(XvS, Yva)  # train AUC
+    list_va.append(temp2)
+    print(temp2)
+
+print(list_tr)
+print(list_va)
+
+plt.plot(r, list_tr)
+plt.plot(r, list_va)
+plt.show()
 
