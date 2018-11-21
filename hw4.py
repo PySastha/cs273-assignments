@@ -126,6 +126,13 @@ ax.set_xticklabels(['']+A)
 ax.set_yticklabels(['']+K)
 plt.show()
 
+f, ax = plt.subplots(1, 1, figsize=(8, 5))
+cax = ax.matshow(va_auc, interpolation='nearest')
+f.colorbar(cax)
+ax.set_xticklabels(['']+ list(A))
+ax.set_yticklabels(['']+ list(K))
+plt.show()
+
 
 
 
