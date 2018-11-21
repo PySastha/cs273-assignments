@@ -191,7 +191,7 @@ print("\nQ-4 Solution:\n-------------\n")
 
 #dtree_auc_plot(Xt, Xva, Yt, Yva)
 
-run_dt = 0
+run_dt = 1
 if run_dt:
     K = range(1, 10, 1)  # Or something else
     A = range(0, 5, 1)  # Or something else
@@ -201,8 +201,10 @@ if run_dt:
     for i, k in enumerate(K):
         for j, a in enumerate(A):
             print(i, j)
-            learner = ml.knn.knnClassify()
-            learner.train(XtS, Yt, K=k, alpha=a)
+
+            learner = ml.dtree.treeClassify()
+            learner.train(Xt, Yt, maxDepth=5, minParent=i, minLeaf=j)
+
             tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
             va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
 
