@@ -83,27 +83,32 @@ print("Initially, reg was swept from -10 to +10. \nSince it is changing only bet
 
 #linear_auc_plot(XtS_d2,XvS_d2,Yt,Yva)
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+def nn_auc_plot(xt,xv,yt,yv):
+    list_tr = []
+    list_va = []
+    r = [0, 1, 2, 3] #, 4, 5, 10, 20, 30, 40, 50, 100]
+
+    for i in r:
+        learner = ml.knn.knnClassify()
+        learner.train(xt, yt, K=i, alpha=0.0)
+        print("running", i)
+
+        temp1 = learner.auc(xt, yt)  # train AUC
+        list_tr.append(temp1)
+        temp2 = learner.auc(xv, yv)  # train AUC
+        list_va.append(temp2)
+
+    plt.plot(r, list_tr)
+    plt.plot(r, list_va)
+    plt.show()
+# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 print("\nQ-3 Solution:\n-------------\n")
 
-list_tr = []
-list_va = []
-r = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100]
-for i in r:
-    learner = ml.knn.knnClassify()
-    learner.train(XtS, Yt, K=i, alpha=0.0)
+nn_auc_plot(XtS,XvS,Yt,Yva)
 
-    temp1 = learner.auc(XtS, Yt) # train AUC
-    list_tr.append(temp1)
-    print(temp1)
 
-    temp2 = learner.auc(XvS, Yva)  # train AUC
-    list_va.append(temp2)
-    print(temp2)
 
-print(list_tr)
-print(list_va)
 
-plt.plot(r, list_tr)
-plt.plot(r, list_va)
-plt.show()
+
+
 
