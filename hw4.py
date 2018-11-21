@@ -107,39 +107,60 @@ print("\nQ-3 Solution:\n-------------\n")
 #nn_auc_plot(XtS,XvS,Yt,Yva)
 #nn_auc_plot(Xt,Xva,Yt,Yva)
 
-K = range(1,10,1) # Or something else
-A = range(0,5,1) # Or something else
-tr_auc = np.zeros((len(K), len(A)))
-va_auc = np.zeros((len(K), len(A)))
+run = 0
+if run:
+    K = range(1, 10, 1)  # Or something else
+    A = range(0, 5, 1)  # Or something else
+    tr_auc = np.zeros((len(K), len(A)))
+    va_auc = np.zeros((len(K), len(A)))
 
-for i, k in enumerate(K):
-    for j, a in enumerate(A):
-        print(i,j)
-        learner = ml.knn.knnClassify()
-        learner.train(XtS, Yt, K=k, alpha=a)
-        tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
-        va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
+    for i, k in enumerate(K):
+        for j, a in enumerate(A):
+            print(i, j)
+            learner = ml.knn.knnClassify()
+            learner.train(XtS, Yt, K=k, alpha=a)
+            tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
+            va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
 
-A = list(A)
-K = list(K)
+    A = list(A)
+    K = list(K)
 
-# Now plot it
-f, ax = plt.subplots(1, 1, figsize=(8, 5))
-cax = ax.matshow(tr_auc, interpolation='nearest')
-f.colorbar(cax)
-ax.set_xticklabels(['']+A)
-ax.set_yticklabels(['']+K)
-plt.show()
+    # Now plot it
+    f, ax = plt.subplots(1, 1, figsize=(8, 5))
+    cax = ax.matshow(tr_auc, interpolation='nearest')
+    f.colorbar(cax)
+    ax.set_xticklabels([''] + A)
+    ax.set_yticklabels([''] + K)
+    plt.show()
 
-f, ax = plt.subplots(1, 1, figsize=(8, 5))
-cax = ax.matshow(va_auc, interpolation='nearest')
-f.colorbar(cax)
-ax.set_xticklabels(['']+ A)
-ax.set_yticklabels(['']+ K)
-plt.show()
+    f, ax = plt.subplots(1, 1, figsize=(8, 5))
+    cax = ax.matshow(va_auc, interpolation='nearest')
+    f.colorbar(cax)
+    ax.set_xticklabels([''] + A)
+    ax.set_yticklabels([''] + K)
+    plt.show()
+# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+def dtree_auc_plot(xt,xv,yt,yv):
+    list_tr = []
+    list_va = []
+    r = [0, 1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
+    for i in r:
+        learner = ml.dtree.treeClassify()
+        learner.train(xt, yt, maxDepth=i, minParent=2, minLeaf=1)
+        #print("running", i)
 
+        temp1 = learner.auc(xt, yt)  # train AUC
+        list_tr.append(temp1)
+        temp2 = learner.auc(xv, yv)  # train AUC
+        list_va.append(temp2)
 
+    plt.plot(r, list_tr)
+    plt.plot(r, list_va)
+    plt.show()
+# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+print("\nQ-4 Solution:\n-------------\n")
 
+dtree_auc_plot(Xt, Xva, Yt, Yva)
 
 
