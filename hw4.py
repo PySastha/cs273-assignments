@@ -70,7 +70,7 @@ print("\nQ-2 Solution:\n-------------\n")
 print("AUC value is the area under ROC curve")
 print("Initially, reg was swept from -10 to +10. \nSince it is changing only between -2 to +5, that area has small step size")
 
-linear_auc_plot(XtS,XvS,Yt,Yva)
+#linear_auc_plot(XtS,XvS,Yt,Yva)
 
 #XtS_d2 = ml.transforms.fpoly(Xt,2,False) # Degree 2
 #XtS_d2,params = ml.rescale(XtS_d2)
@@ -105,6 +105,7 @@ def nn_auc_plot(xt,xv,yt,yv):
 print("\nQ-3 Solution:\n-------------\n")
 
 #nn_auc_plot(XtS,XvS,Yt,Yva)
+nn_auc_plot(Xt,Xva,Yt,Yva)
 
 
 
