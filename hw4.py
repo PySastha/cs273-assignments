@@ -114,10 +114,15 @@ va_auc = np.zeros((len(K), len(A)))
 
 for i, k in enumerate(K):
     for j, a in enumerate(A):
+        print(i,j)
         learner = ml.knn.knnClassify()
         learner.train(XtS, Yt, K=k, alpha=a)
         tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
         va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
+
+A = list(A)
+K = list(K)
+
 # Now plot it
 f, ax = plt.subplots(1, 1, figsize=(8, 5))
 cax = ax.matshow(tr_auc, interpolation='nearest')
@@ -129,8 +134,8 @@ plt.show()
 f, ax = plt.subplots(1, 1, figsize=(8, 5))
 cax = ax.matshow(va_auc, interpolation='nearest')
 f.colorbar(cax)
-ax.set_xticklabels(['']+ list(A))
-ax.set_yticklabels(['']+ list(K))
+ax.set_xticklabels(['']+ A)
+ax.set_yticklabels(['']+ K)
 plt.show()
 
 
