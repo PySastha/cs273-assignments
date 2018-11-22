@@ -73,8 +73,8 @@ XtS_d2,params = ml.rescale(XtS_d2)
 XvS_d2 = ml.transforms.fpoly(Xva,2,False) # Degree 2
 XvS_d2, _ = ml.rescale(XvS_d2,params) # Normalize the features
 
-print("\n", XtS_d2) # To have a idea about degree 2 poly
-print(XtS_d2.shape)
+#print("\n", XtS_d2) # To have a idea about degree 2 poly
+#print(XtS_d2.shape)
 
 #linear_auc_plot(XtS_d2,XvS_d2,Yt,Yva)
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
@@ -243,6 +243,15 @@ if run_nnet:
             print(abc_list)
 
             nn = ml.nnet.nnetClassify()
+
+            # 5.2:
+            def sig(z):
+                return np.atleast_2d(z)
+            def dsig(z):
+                return np.atleast_2d(1)
+            nn.setActivation('custom', sig, dsig)
+            # 5.2:
+
             nn.init_weights(abc_list, 'random', XtS, Yt)  # as many layers nodes you want
             nn.train(XtS, Yt, stopTol=1e-8, stepsize=.25, stopIter=300)
 
@@ -267,7 +276,3 @@ if run_nnet:
     ax.set_yticklabels([''] + K)
     plt.show()
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-
-#5.2:
-
-
