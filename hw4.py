@@ -191,22 +191,21 @@ print("\nQ-4 Solution:\n-------------\n")
 
 #dtree_auc_plot(Xt, Xva, Yt, Yva)
 
-run_dt = 0
+run_dt = 1
 if run_dt:
-    K = range(1, 10, 1)  # Or something else
-    A = range(0, 5, 1)  # Or something else
+    K = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,35]  # Or something else
+    A = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,35]  # Or something else
     tr_auc = np.zeros((len(K), len(A)))
     va_auc = np.zeros((len(K), len(A)))
 
     for i, k in enumerate(K):
         for j, a in enumerate(A):
-            print(i, j)
+            print(k, a)
 
-            learner = ml.dtree.treeClassify()
-            learner.train(Xt, Yt, maxDepth=5, minParent=k, minLeaf=a)
+            learner = ml.dtree.treeClassify(Xt, Yt, maxDepth=5, minParent=k, minLeaf=a)
 
-            tr_auc[i][j] = learner.auc(XtS, Yt)  # train AUC
-            va_auc[i][j] = learner.auc(XvS, Yva)  # train AUC
+            tr_auc[i][j] = learner.auc(Xt, Yt)  # train AUC
+            va_auc[i][j] = learner.auc(Xva, Yva)  # train AUC
 
     A = list(A)
     K = list(K)
@@ -228,7 +227,7 @@ if run_dt:
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 print("\nQ-5 Solution:\n-------------\n")
 
-run_nnet = 1
+run_nnet = 0
 if run_nnet:
     K = range(1, 8)  # Or something else
     A = range(1, 4)  # Or something else
