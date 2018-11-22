@@ -243,16 +243,14 @@ if run_nnet:
             print(abc_list)
 
             nn = ml.nnet.nnetClassify()
-
-            # 5.2:
+            nn.init_weights(abc_list, 'random', XtS, Yt)  # as many layers nodes you want
+            # 5.2: ---------------------------------------------------
             def sig(z):
                 return np.atleast_2d(z)
             def dsig(z):
                 return np.atleast_2d(1)
             nn.setActivation('custom', sig, dsig)
-            # 5.2:
-
-            nn.init_weights(abc_list, 'random', XtS, Yt)  # as many layers nodes you want
+            # 5.2: ---------------------------------------------------
             nn.train(XtS, Yt, stopTol=1e-8, stepsize=.25, stopIter=300)
 
             tr_auc[i][j] = nn.auc(XtS, Yt)  # train AUC
