@@ -224,8 +224,8 @@ print("\nQ-5 Solution:\n-------------\n")
 
 run_nnet = 1
 if run_nnet:
-    K = range(1, 8)  # Or something else
-    A = range(1, 4)  # Or something else
+    K = [1, 2, 3, 5,10]  # Or something else
+    A = [1, 2, 3]  # Or something else
     tr_auc = np.zeros((len(K), len(A)))
     va_auc = np.zeros((len(K), len(A)))
 
