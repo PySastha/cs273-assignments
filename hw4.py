@@ -224,8 +224,8 @@ print("\nQ-5 Solution:\n-------------\n")
 
 run_nnet = 1
 if run_nnet:
-    K = range(1, 8)  # Or something else
-    A = range(1, 4)  # Or something else
+    K = [1,2,3,4,5,10,20,30]  # Or something else
+    A = [1,2,3,4,5,10]  # Or something else
     tr_auc = np.zeros((len(K), len(A)))
     va_auc = np.zeros((len(K), len(A)))
 
@@ -249,7 +249,7 @@ if run_nnet:
                 return np.atleast_2d(z)
             def dsig(z):
                 return np.atleast_2d(1)
-            nn.setActivation('custom', sig, dsig)
+            nn.setActivation('logistic', sig, dsig)
             # 5.2: ---------------------------------------------------
             nn.train(XtS, Yt, stopTol=1e-8, stepsize=.25, stopIter=300)
 
